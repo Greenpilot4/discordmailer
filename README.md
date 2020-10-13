@@ -1,2 +1,25 @@
 # Discordmailer
-Send an email with a discord bot. 
+
+Install Node.js
+CentOS - `yum install nodejs12`
+
+## Installing Dependencies 
+ 
+To install needed packages run - `npm install`  within directory
+
+## Edit Config.json and running bot
+***Within the config.json change these files.*** 
+
+**prefix** - Prefix of the Bot Commands
+
+**token**  - Discord Bot Token 
+
+**host** - SMTP Server Host 
+
+**username** - SMTP Username
+
+**password** - SMTP Password 
+
+After run `node .` to start the bot!
+
+ 
