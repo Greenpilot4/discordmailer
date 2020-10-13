@@ -10,7 +10,7 @@ To install needed packages run - `npm install`  within directory
 ## Edit Config.json and running bot
 ***Within the config.json change these files.*** 
 
-**prefix** - Prefix of the Bot Commands
+**prefix** - Prefix for Bot Commands
 
 **token**  - Discord Bot Token 
 
