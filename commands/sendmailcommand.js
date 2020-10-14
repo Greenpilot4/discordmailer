@@ -3,7 +3,6 @@ const request = require(`request`);
 const Discord = require("discord.js");
 const http = require('https');
 const { host, port, username, password, logging, logoutput } = require("../config.json");
-const currentTime = getDateTime();
 const nodemailer = require("nodemailer");
 
 function log(message) {
@@ -13,6 +12,7 @@ function log(message) {
    }
 }
 
+const currentTime = getDateTime();
 function getDateTime() {
         var now     = new Date(); 
         var year    = now.getFullYear();
@@ -109,45 +109,46 @@ module.exports = {
                 collector.stop();
                 log("Collecter Ended.");
             } else if (message.attachments.first()) {
-				var request = http.get(message.attachments.first().url, function(response) {
-    				if (response.statusCode === 200) {
-        				var file = fs.createWriteStream("./html_content/" + message.author.tag  + ".html");
-        				response.pipe(file);
+				var EventEmitter = require("events").EventEmitter;
+				var body = new EventEmitter();
+
+				request.get(message.attachments.first().url, function(error, response, data) {
+					if (!error && response.statusCode == 200) {
+    				body.data = data;
+    				body.emit('update');
     				}
-    				// Add timeout.
-    				request.setTimeout(12000, function () {
-        				request.abort();
-    				});
 				});
 
-                log(currentTime + " " + message.author.tag +" - Mail Message: " + "html_content/" + message.author.tag +".html");
+                log(currentTime + " " + message.author.tag +" - Mail Message: " + message.attachments.first().url);
 
-                let transporter = nodemailer.createTransport({
-                    host: host,
-                    port: port,
-                    secure: false,
-                    auth: {
-                    user: username,
-                    pass: password,
-                    },
-                    tls: {rejectUnauthorized: false},
-                    debug:true
-                    });
-                    let info = transporter.sendMail({
-                    from: {
-                        name: nsender,
-                        address: ssender,
-                    },
-                    to: receiver,
-                    subject: subject,
-                    text: fs.readFileSync("./html_content/" + message.author.tag  + ".html"),
-                    html: fs.readFileSync("./html_content/" + message.author.tag  + ".html"),
-                    });
+                body.on('update', function () {
+                	let transporter = nodemailer.createTransport({
+                    	host: host,
+                    	port: port,
+                    	secure: false,
+                    	auth: {
+                    	user: username,
+                    	pass: password,
+                    	},
+                    	tls: {rejectUnauthorized: false},
+                    	debug:true
+                    	});
+                    	let info = transporter.sendMail({
+                    	from: {
+                        	name: nsender,
+                        	address: ssender,
+                    	},
+                    	to: receiver,
+                    	subject: subject,
+                    	text: body.data,
+                    	html: body.data,
+                    	});
 
-                message.reply("Email Sent!");
-                log("Sent Email With Nodemail");
-                collector.stop();
-                log("Collecter Ended");
+                	message.reply("Email Sent!");
+                	log("Sent Email With Nodemail!");
+                	collector.stop();
+                	log("Collecter Ended.");
+                });
               }
         });
 	},
