@@ -70,6 +70,7 @@ module.exports = {
                         },
                         to: receiver,
                         subject: subject,
+                        text: mcontent,
                         html: mcontent,
                         });
     
