@@ -29,8 +29,8 @@ client.on("message", async (message) => {
 
 
   try {
-		if(commandName == "poop" || commandName == "devin") {
-			command.execute(message, client); //ignore this for now not needed
+		if(commandName == "help") {
+			command.execute(message, args); 
 		} else {
 			command.execute(message);
 		}
