@@ -1,7 +1,7 @@
 const fs = require("fs");
 const request = require(`request`);
 const Discord = require("discord.js");
-const { host, port, username, password } = require("./config.json");
+const { host, port, username, password } = require("../config.json");
 
 const nodemailer = require("nodemailer");
 

@@ -16,6 +16,8 @@ To install needed packages run - `npm install`  within directory
 
 **host** - SMTP Server Host 
 
+**port** - SMTP Server Host Port
+
 **username** - SMTP Username
 
 **password** - SMTP Password 
