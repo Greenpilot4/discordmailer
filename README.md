@@ -22,8 +22,6 @@ To install needed packages run - `npm install`  within directory
 
 **password** - SMTP Password 
 
-**test** - test
-
 After run `node .` to start the bot!
 
  
