@@ -43,7 +43,7 @@ module.exports = {
                 nsender = message.content;
                 log(message.author.tag + " - Mail Sender Name: " + message.content);
                 counter++;
-            }else if (message.content && counter == 3) {
+            } else if (message.content && counter == 3) {
                 message.reply("Subject Set Please Provide A Message");
                 subject = message.content;
                 log(message.author.tag + " - Mail Subject: " + message.content);
