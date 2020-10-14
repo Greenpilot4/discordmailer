@@ -8,7 +8,7 @@ CentOS - `yum install nodejs12`
 To install needed packages run - `npm install`  within directory
 
 ## Edit Config.json and running bot
-***Within the config.json change these files.*** 
+***Within the config.json change these lines.*** 
 
 **prefix** - Prefix for Bot Commands
 
@@ -21,6 +21,10 @@ To install needed packages run - `npm install`  within directory
 **username** - SMTP Username
 
 **password** - SMTP Password 
+
+**logging** - Enables and disables logging
+
+**logoutput** - File name of the logs
 
 After run `node .` to start the bot!
 
