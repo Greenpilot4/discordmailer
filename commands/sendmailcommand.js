@@ -46,7 +46,7 @@ module.exports = {
     name: 'mail',
     description: 'Send a spoofed email with discord!',
 	execute(message, args) {
-	    message.reply("Please Provide The Recipients Address.");
+	    message.reply("Please provide the recipients address.");
         log(currentTime + " " + message.author.tag +" has ran the mail command.");
         let filter = (m) => !m.author.bot;
         const collector = new Discord.MessageCollector(
@@ -61,20 +61,20 @@ module.exports = {
             if (message.content && counter == 0) {
                 receiver = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Recipient Address: " + message.content);
-                message.reply("Please Provide A Sender Address.");
+                message.reply("Please provide a sender address.");
                 counter++;
             } else if (message.content && counter == 1) {
                 ssender = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Sender Address: " + message.content);
-                message.reply("Please Provide A Sender Name.");
+                message.reply("Please provide a sender name.");
                 counter++;
             } else if (message.content && counter == 2) {
-                message.reply("Please Provide A Subject.");
+                message.reply("Please provide a subject.");
                 nsender = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Sender Name: " + message.content);
                 counter++;
             } else if (message.content && counter == 3) {
-                message.reply("Please Provide A Message.");
+                message.reply("Please provide a message.");
                 subject = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Subject: " + message.content);
                 counter++;
