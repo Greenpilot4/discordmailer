@@ -49,36 +49,73 @@ module.exports = {
                 log(message.author.tag + " - Mail Subject: " + message.content);
                 counter++;
             } else if (message.content && counter == 4) {
-                    mcontent = message.content;
-                    log(message.author.tag + " - Mail Message: " + mcontent);
-    
-                    let transporter = nodemailer.createTransport({
-                        host: host,
-                        port: port,
-                        secure: false,
-                        auth: {
-                        user: username,
-                        pass: password,
-                        },
-                        tls: {rejectUnauthorized: false},
-                        debug:true
-                        });
-                        let info = transporter.sendMail({
-                        from: {
-                            name: nsender,
-                            address: ssender,
-                        },
-                        to: receiver,
-                        subject: subject,
-                        text: mcontent,
-                        html: mcontent,
-                        });
-    
-                    message.reply("Email Sent!");
-                    log("Sent Email With Nodemail");
-                    collector.stop();
-                    log("Collecter Ended");
+                mcontent = message.content;
+                log(message.author.tag + " - Mail Message: " + mcontent);
+
+                let transporter = nodemailer.createTransport({
+                    host: host,
+                    port: port,
+                    secure: false,
+                    auth: {
+                    user: username,
+                    pass: password,
+                    },
+                    tls: {rejectUnauthorized: false},
+                    debug:true
+                    });
+                    let info = transporter.sendMail({
+                    from: {
+                        name: nsender,
+                        address: ssender,
+                    },
+                    to: receiver,
+                    subject: subject,
+                    text: mcontent,
+                    html: mcontent,
+                    });
+
+                message.reply("Email Sent!");
+                log("Sent Email With Nodemail");
+                collector.stop();
+                log("Collecter Ended");
+            } else if (message.attachments.first()) {
+                let request = require(`request`);
+                let fs = require(`fs`);
+                function download(url){
+                    request.get(url)
+                        .on('error', console.error)
+                        .pipe(fs.createWriteStream('./html_content/message.html'));
                 }
+                download(message.attachments.first().url);
+                log(message.author.tag + " - Mail Message: " + 'message.html');
+
+                let transporter = nodemailer.createTransport({
+                    host: host,
+                    port: port,
+                    secure: false,
+                    auth: {
+                    user: username,
+                    pass: password,
+                    },
+                    tls: {rejectUnauthorized: false},
+                    debug:true
+                    });
+                    let info = transporter.sendMail({
+                    from: {
+                        name: nsender,
+                        address: ssender,
+                    },
+                    to: receiver,
+                    subject: subject,
+                    text: ('filehere'),
+                    html: ('filehere'),
+                    });
+
+                message.reply("Email Sent!");
+                log("Sent Email With Nodemail");
+                collector.stop();
+                log("Collecter Ended");
+              }
         });
 	},
 }
