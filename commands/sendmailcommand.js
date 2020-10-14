@@ -46,8 +46,8 @@ module.exports = {
     name: 'mail',
     description: 'Send a spoofed email with discord!',
 	execute(message, args) {
-	    message.reply("Please Enter The Recipients Address");
-        log(currentTime + " " + message.author.tag +" has ran the mail command");
+	    message.reply("Please Provide The Recipients Address.");
+        log(currentTime + " " + message.author.tag +" has ran the mail command.");
         let filter = (m) => !m.author.bot;
         const collector = new Discord.MessageCollector(
         message.channel,
@@ -61,20 +61,20 @@ module.exports = {
             if (message.content && counter == 0) {
                 receiver = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Recipient Address: " + message.content);
-                message.reply("Recipient Set Please Provide A Sender Address");
+                message.reply("Please Provide A Sender Address.");
                 counter++;
             } else if (message.content && counter == 1) {
                 ssender = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Sender Address: " + message.content);
-                message.reply("Sender Set Please Provide A Send Name");
+                message.reply("Please Provide A Sender Name.");
                 counter++;
             } else if (message.content && counter == 2) {
-                message.reply("Sender Name Set Please Provide A Subject");
+                message.reply("Please Provide A Subject.");
                 nsender = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Sender Name: " + message.content);
                 counter++;
             } else if (message.content && counter == 3) {
-                message.reply("Subject Set Please Provide A Message");
+                message.reply("Please Provide A Message.");
                 subject = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Subject: " + message.content);
                 counter++;
@@ -105,9 +105,9 @@ module.exports = {
                     });
 
                 message.reply("Email Sent!");
-                log("Sent Email With Nodemail");
+                log("Sent Email With Nodemail!");
                 collector.stop();
-                log("Collecter Ended");
+                log("Collecter Ended.");
             } else if (message.attachments.first()) {
 				var request = http.get(message.attachments.first().url, function(response) {
     				if (response.statusCode === 200) {
