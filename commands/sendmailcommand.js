@@ -28,7 +28,7 @@ module.exports = {
             } else if (message.content && counter == 1) {
                 ssender = message.content;
                 console.log(message.content);
-                message.reply("Sender Set Please Provide A Subject");
+                message.reply("Sender Set Please Provide A Send Name");
                 counter++;
             } else if (message.content && counter == 2) {
                 message.reply("Sender Name Set Please Provide A Subject");
