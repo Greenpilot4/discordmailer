@@ -2,6 +2,7 @@
     "prefix": "^", 
     "token": "DISCORD TOKEN HERE",
     "host": "SMTP HOST HERE",
+    "port": "SMTP HOST PORT HERE",
     "username": "SMTP USER HERE",
     "password": "SMTP PASSWORD HERE"
     
