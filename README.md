@@ -22,6 +22,10 @@ To install needed packages run - `npm install`  within directory
 
 **password** - SMTP Password 
 
+**logging** - Enables and disables logging
+
+**logoutput** - File name of the logs
+
 After run `node .` to start the bot!
 
  
