@@ -1,13 +1,15 @@
 const fs = require("fs");
 const request = require(`request`);
 const Discord = require("discord.js");
-const { host, port, username, password } = require("../config.json");
+const { host, port, username, password, logging, logoutput } = require("../config.json");
 
 const nodemailer = require("nodemailer");
 
 function log(message) {
    console.log(message);
-   fs.appendFileSync("log.txt", message + "\n");
+   if (logging == true){
+    fs.appendFileSync(logoutput, message + "\n");
+   }
 }
 
 module.exports = {
