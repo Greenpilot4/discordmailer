@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 
 function log(message) {
    console.log(message);
-   if (logging == true){
+   if (logging == "true"){
     fs.appendFileSync(logoutput, message + "\n");
    }
 }
@@ -30,27 +30,27 @@ module.exports = {
         collector.on("collect", (message) => {
             if (message.content && counter == 0) {
                 receiver = message.content;
-                log(message.author.tag + " - Mail Recipient Address - " + message.content);
+                log(message.author.tag + " - Mail Recipient Address: " + message.content);
                 message.reply("Recipient Set Please Provide A Sender Address");
                 counter++;
             } else if (message.content && counter == 1) {
                 ssender = message.content;
-                log(message.author.tag + " - Mail Sender Address - " + message.content);
+                log(message.author.tag + " - Mail Sender Address: " + message.content);
                 message.reply("Sender Set Please Provide A Send Name");
                 counter++;
             } else if (message.content && counter == 2) {
                 message.reply("Sender Name Set Please Provide A Subject");
                 nsender = message.content;
-                log(message.author.tag + " - Mail Sender Name - " + message.content);
+                log(message.author.tag + " - Mail Sender Name: " + message.content);
                 counter++;
             }else if (message.content && counter == 3) {
                 message.reply("Subject Set Please Provide A Message");
                 subject = message.content;
-                log(message.author.tag + " - Mail Subject - " + message.content);
+                log(message.author.tag + " - Mail Subject: " + message.content);
                 counter++;
             } else if (message.content && counter == 4) {
                     mcontent = message.content;
-                    log(message.author.tag + " - Mail Message - " + mcontent);
+                    log(message.author.tag + " - Mail Message: " + mcontent);
     
                     let transporter = nodemailer.createTransport({
                         host: host,
