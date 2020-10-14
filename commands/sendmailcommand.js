@@ -1,7 +1,7 @@
 const fs = require("fs");
 const request = require(`request`);
 const Discord = require("discord.js");
-const { host, username, password } = require("./config.json");
+const { host, port, username, password } = require("./config.json");
 
 const nodemailer = require("nodemailer");
 
@@ -46,7 +46,7 @@ module.exports = {
     
                     let transporter = nodemailer.createTransport({
                         host: host,
-                        port: 587,
+                        port: port,
                         secure: false,
                         auth: {
                         user: username,
