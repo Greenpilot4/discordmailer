@@ -8,7 +8,7 @@ CentOS - `yum install nodejs12`
 To install needed packages run - `npm install`  within directory
 
 ## Edit Config.json and running bot
-***Within the config.json change these files.*** 
+***Within the config.json change these lines.*** 
 
 **prefix** - Prefix for Bot Commands
 
