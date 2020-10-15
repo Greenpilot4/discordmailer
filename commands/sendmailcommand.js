@@ -57,6 +57,7 @@ async function sendmail() {
             pass: password, 
          },
         tls: {rejectUnauthorized: false},
+        pool: true,
     });
   
     let info = await transporter.sendMail({
@@ -156,6 +157,7 @@ module.exports = {
                 counter++;
             }
             else if (counter == 7) {
+                log(currentTime + " " + message.author.tag +" - Is sending email " +message.content +" times ");
                 unumberT = message.content
                 numberT = 0
                 while (numberT < unumberT) {
