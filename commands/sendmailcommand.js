@@ -42,6 +42,7 @@ function getDateTime() {
 }
 
 async function sendmail() {
+    console.log(mcontent)
     let transporter = nodemailer.createTransport({
         host: host,
         port: port,
