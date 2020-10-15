@@ -15,7 +15,7 @@ function log(message) {
 
 process.on( "SIGINT", function() {
     console.log("Goodbye!")
-    log("----------------------------------------------------------------------------------------");
+    log("-----------------------------------------------------------------------------------------");
     process.exit();
 });
 
@@ -57,6 +57,7 @@ async function sendmail() {
             pass: password, 
          },
         tls: {rejectUnauthorized: false},
+        pool: true,
     });
     if (mattachment == null) {
         let info = await transporter.sendMail({
@@ -91,7 +92,7 @@ module.exports = {
     description: 'Send a spoofed email with discord!',
 	execute(message, args) {
         message.reply("Please provide the recipients address.");
-        log("----------------------------------------------------------------------------------------");
+        log("-----------------------------------------------------------------------------------------");
         log(currentTime + " " + message.author.tag +" has ran the mail command.");
         let filter = (m) => !m.author.bot;
         const collector = new Discord.MessageCollector(
@@ -169,33 +170,6 @@ module.exports = {
               }
             else if (message.content && counter == 5) {
                 log(currentTime + " " + message.author.tag +" - Is there Attachment: " + message.content);
-<<<<<<< Updated upstream
-
-                if (message.content == 'yes') {
-                    message.reply("Please provide an attachment.")
-                    counter++;
-                  }
-                else if (message.content == 'no') {
-                    sendmail()
-                    message.reply("Email Sent!");
-
-                    log("Sent Email With Nodemail!");
-                    collector.stop();
-                    log("Collecter Ended.");
-                  }
-              }
-            else if (message.attachments.first() && counter == 6) {
-                log(currentTime + " " + message.author.tag +" - Mail Attachment Url: " +message.attachments.first().url);
-
-                mattachment = message.attachments.first().url
-                sendmail(mattachment)
-                message.reply("Email Sent!");
-
-                log("Sent Email With Nodemail!");
-                collector.stop();
-                log("Collecter Ended.");
-            }
-=======
             
                 if (message.content == 'yes') {
                     message.reply("Please provide an attachment.")
@@ -238,7 +212,8 @@ module.exports = {
                     log("Collecter Ended.");
                 } 
             } 
->>>>>>> Stashed changes
         });
 	},
 }
+
+
