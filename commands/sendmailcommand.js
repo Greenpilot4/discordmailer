@@ -1,9 +1,9 @@
 const fs = require("fs");
+const http = require('https');
 const request = require(`request`);
 const Discord = require("discord.js");
-const http = require('https');
-const { host, port, username, password, logging, logoutput } = require("../config.json");
 const nodemailer = require("nodemailer");
+const { host, port, username, password, logging, logoutput } = require("../config.json");
 
 function log(message) {
    console.log(message);
