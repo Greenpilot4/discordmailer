@@ -16,7 +16,7 @@ for (const file of commandFiles) {
 }
 
 client.once("ready", () => {
-  console.log("Ready!");
+  console.log(`${client.user.username} Ready!`);
 });
 
 client.on("message", async (message) => {
