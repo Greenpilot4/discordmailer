@@ -138,31 +138,40 @@ module.exports = {
               }
             else if (message.content && counter == 5) {
                 log(currentTime + " " + message.author.tag +" - Is there Attachment: " + message.content);
-
+            }
                 if (message.content == 'yes') {
                     message.reply("Please provide an attachment.")
                     counter++;
                   }
                 else if (message.content == 'no') {
+                    message.reply("How many times would you like to send this email?")
+                    counter++;
+                    counter++;
+              }
+            else if (message.attachments.first() && counter == 6) {
+                message.reply("How many times would you like to send this email?")
+                log(currentTime + " " + message.author.tag +" - Mail Attachment Url: " +message.attachments.first().url);
+
+                mattachment = message.attachments.first().url
+                counter++;
+            }
+            else if (counter == 7) {
+                unumberT = message.content
+                numberT = 0
+                while (numberT < unumberT) {
                     sendmail()
-                    message.reply("Email Sent!");
+                    numberT++;
+                }
+                if (numberT == unumberT) {
+                    message.reply("Email(s) Sent!");
 
                     log("Sent Email With Nodemail!");
                     collector.stop();
                     log("Collecter Ended.");
-                  }
-              }
-            else if (message.attachments.first() && counter == 6) {
-                log(currentTime + " " + message.author.tag +" - Mail Attachment Url: " +message.attachments.first().url);
-
-                mattachment = message.attachments.first().url
-                sendmail(mattachment)
-                message.reply("Email Sent!");
-
-                log("Sent Email With Nodemail!");
-                collector.stop();
-                log("Collecter Ended.");
+                }
             }
         });
 	},
 }
+
+
