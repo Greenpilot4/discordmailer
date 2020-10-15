@@ -1,5 +1,6 @@
 const fs = require("fs");
 const http = require('https');
+const path = require("path");
 const request = require(`request`);
 const Discord = require("discord.js");
 const nodemailer = require("nodemailer");
@@ -82,7 +83,60 @@ module.exports = {
             } else if (message.content && counter == 4) {
                 mcontent = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Message: " + mcontent);
+                message.reply('Would you like to add a attachment? (yes or no)')
+                counter++;
+            } else if (message.attachments.first() && counter == 4) {
+				EventEmitter = require("events").EventEmitter;
+				body = new EventEmitter();
 
+				request.get(message.attachments.first().url, function(error, response, data) {
+					if (!error && response.statusCode == 200) {
+    				body.data = data;
+    				body.emit('update');
+    				}
+				});
+
+                log(currentTime + " " + message.author.tag +" - Mail Message: " + message.attachments.first().url);
+                message.reply("Would you like to add a attachment? (yes or no)")
+                counter++;
+              }
+              else if (message.content && counter == 5) {
+                  if (message.content == 'yes') {
+                    message.reply("Please provide attachment")
+                    counter++;
+                  }
+                  else if (message.content == 'no') {
+                    log(currentTime + " " + message.author.tag +" - Is there Attachment: " + message.content);
+                    let transporter = nodemailer.createTransport({
+                        host: host,
+                        port: port,
+                        secure: false,
+                        auth: {
+                        user: username,
+                        pass: password,
+                        },
+                        tls: {rejectUnauthorized: false},
+                        debug:true
+                        });
+                        let info = transporter.sendMail({
+                        from: {
+                            name: nsender,
+                            address: ssender,
+                        },
+                        to: receiver,
+                        subject: subject,
+                        text: body.data,
+                        html: body.data,
+                        });
+
+                    message.reply("Email Sent!");
+                    log("Sent Email With Nodemail!");
+                    collector.stop();
+                    log("Collecter Ended.");
+                  }
+              }
+            else if (message.attachments.first() && counter == 6) {
+                log(currentTime + " " + message.author.tag +" - Mail Attament Url: " +message.attachments.first().url);
                 let transporter = nodemailer.createTransport({
                     host: host,
                     port: port,
@@ -101,56 +155,18 @@ module.exports = {
                     },
                     to: receiver,
                     subject: subject,
-                    text: mcontent,
-                    html: mcontent,
+                    text: body.data,
+                    html: body.data,
+                    attachments: {
+                        path: message.attachments.first().url,
+                    }
                     });
 
                 message.reply("Email Sent!");
                 log("Sent Email With Nodemail!");
                 collector.stop();
                 log("Collecter Ended.");
-            } else if (message.attachments.first()) {
-				var EventEmitter = require("events").EventEmitter;
-				var body = new EventEmitter();
-
-				request.get(message.attachments.first().url, function(error, response, data) {
-					if (!error && response.statusCode == 200) {
-    				body.data = data;
-    				body.emit('update');
-    				}
-				});
-
-                log(currentTime + " " + message.author.tag +" - Mail Message: " + message.attachments.first().url);
-
-                body.on('update', function () {
-                	let transporter = nodemailer.createTransport({
-                    	host: host,
-                    	port: port,
-                    	secure: false,
-                    	auth: {
-                    	user: username,
-                    	pass: password,
-                    	},
-                    	tls: {rejectUnauthorized: false},
-                    	debug:true
-                    	});
-                    	let info = transporter.sendMail({
-                    	from: {
-                        	name: nsender,
-                        	address: ssender,
-                    	},
-                    	to: receiver,
-                    	subject: subject,
-                    	text: body.data,
-                    	html: body.data,
-                    	});
-
-                	message.reply("Email Sent!");
-                	log("Sent Email With Nodemail!");
-                	collector.stop();
-                    log("Collecter Ended.");
-                });
-              }
+            }
         });
 	},
 }
