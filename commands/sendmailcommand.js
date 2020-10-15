@@ -13,6 +13,12 @@ function log(message) {
    }
 }
 
+process.on( "SIGINT", function() {
+    console.log("Goodbye!")
+    log("----------------------------------------------------------------------------------------");
+    process.exit();
+});
+
 const currentTime = getDateTime();
 function getDateTime() {
         var now     = new Date(); 
@@ -108,7 +114,7 @@ module.exports = {
             } else if (message.content && counter == 4) {
                 mcontent = message.content;
                 log(currentTime + " " + message.author.tag +" - Mail Message: " + mcontent);
-                message.reply('Would you like to add a attachment? (yes or no)')
+                message.reply('Would you like to add an attachment? (yes or no)')
                 counter++;
             } else if (message.attachments.first() && counter == 4) {
 				var EventEmitter = require("events").EventEmitter;
@@ -127,14 +133,14 @@ module.exports = {
                 
                 log(currentTime + " " + message.author.tag +" - Mail Message: " + message.attachments.first().url);
 
-                message.reply("Would you like to add a attachment? (yes or no)")
+                message.reply("Would you like to add an attachment? (yes or no)")
                 counter++;
               }
             else if (message.content && counter == 5) {
                 log(currentTime + " " + message.author.tag +" - Is there Attachment: " + message.content);
 
                 if (message.content == 'yes') {
-                    message.reply("Please provide attachment")
+                    message.reply("Please provide an attachment.")
                     counter++;
                   }
                 else if (message.content == 'no') {
