@@ -148,7 +148,7 @@ module.exports = {
                   }
               }
             else if (message.attachments.first() && counter == 6) {
-                log(currentTime + " " + message.author.tag +" - Mail Attament Url: " +message.attachments.first().url);
+                log(currentTime + " " + message.author.tag +" - Mail Attachment Url: " +message.attachments.first().url);
 
                 mattachment = message.attachments.first().url
                 sendmail(mattachment)
