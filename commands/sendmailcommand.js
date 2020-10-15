@@ -46,7 +46,8 @@ module.exports = {
     name: 'mail',
     description: 'Send a spoofed email with discord!',
 	execute(message, args) {
-	    message.reply("Please provide the recipients address.");
+        message.reply("Please provide the recipients address.");
+        log("---------------------------------------------------------------------------------------------------------------------------------------------------------");
         log(currentTime + " " + message.author.tag +" has ran the mail command.");
         let filter = (m) => !m.author.bot;
         const collector = new Discord.MessageCollector(
@@ -147,7 +148,7 @@ module.exports = {
                 	message.reply("Email Sent!");
                 	log("Sent Email With Nodemail!");
                 	collector.stop();
-                	log("Collecter Ended.");
+                    log("Collecter Ended.");
                 });
               }
         });
