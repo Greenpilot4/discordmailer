@@ -59,20 +59,32 @@ async function sendmail() {
         tls: {rejectUnauthorized: false},
         pool: true,
     });
-  
-    let info = await transporter.sendMail({
-        from: {              
-            name: nsender,
-            address: ssender,
-        }, 
-        to: receiver,
-        subject: subject, 
-        text: mcontent, 
-        html: mcontent, 
-        attachments: {  
-            path: mattachment, 
-        }
-    });
+    if (mattachment == null) {
+        let info = await transporter.sendMail({
+            from: {              
+                name: nsender,
+                address: ssender,
+            }, 
+            to: receiver,
+            subject: subject, 
+            text: mcontent, 
+            html: mcontent, 
+        });
+    } else {
+        let info = await transporter.sendMail({
+            from: {              
+                name: nsender,
+                address: ssender,
+            }, 
+            to: receiver,
+            subject: subject, 
+            text: mcontent, 
+            html: mcontent, 
+            attachments: {  
+                path: mattachment, 
+            }
+        });
+    }
 }
 
 module.exports = {
@@ -113,10 +125,29 @@ module.exports = {
                 log(currentTime + " " + message.author.tag +" - Mail Subject: " + message.content);
                 counter++;
             } else if (message.content && counter == 4) {
-                mcontent = message.content;
-                log(currentTime + " " + message.author.tag +" - Mail Message: " + mcontent);
+                log(currentTime + " " + message.author.tag +" - Mail Message: " + message.content);
+
+                var EventEmitter = require("events").EventEmitter;
+                var body = new EventEmitter();
+
+                if (message.content.includes("http")) {
+                    request.get(message.content, function(error, response, data) {
+                        if (!error && response.statusCode == 200) {
+                        body.data = data;
+                        body.emit('update');
+                        }
+                    });
+                    body.on('update', function () {
+                        mcontent = body.data
+                    });
+                }
+                else {
+                    mcontent = message.content;
+                }
+
                 message.reply('Would you like to add an attachment? (yes or no)')
                 counter++;
+                
             } else if (message.attachments.first() && counter == 4) {
 				var EventEmitter = require("events").EventEmitter;
                 var body = new EventEmitter();
@@ -139,39 +170,48 @@ module.exports = {
               }
             else if (message.content && counter == 5) {
                 log(currentTime + " " + message.author.tag +" - Is there Attachment: " + message.content);
-            }
+            
                 if (message.content == 'yes') {
                     message.reply("Please provide an attachment.")
                     counter++;
-                  }
-                else if (message.content == 'no') {
+                } else if (message.content == 'no') {
                     message.reply("How many times would you like to send this email?")
                     counter++;
                     counter++;
-              }
-            else if (message.attachments.first() && counter == 6) {
+                } else {
+                    message.reply('Invalid')
+                }
+            } else if (message.attachments.first() && counter == 6) {
                 message.reply("How many times would you like to send this email?")
                 log(currentTime + " " + message.author.tag +" - Mail Attachment Url: " +message.attachments.first().url);
 
                 mattachment = message.attachments.first().url
                 counter++;
-            }
-            else if (counter == 7) {
+            } else if (message.content && counter == 6) {
+                message.reply("How many times would you like to send this email?")
+                log(currentTime + " " + message.author.tag +" - Mail Attachment Url: " +message.content);
+                mattachment = message.content
+                counter++;
+            } else if (counter == 7) {
                 log(currentTime + " " + message.author.tag +" - Is sending email " +message.content +" times ");
                 unumberT = message.content
                 numberT = 0
                 while (numberT < unumberT) {
-                    sendmail()
+                    sendmail(mattachment)
                     numberT++;
-                }
-                if (numberT == unumberT) {
+                } if (numberT == unumberT) {
                     message.reply("Email(s) Sent!");
 
                     log("Sent Email With Nodemail!");
                     collector.stop();
                     log("Collecter Ended.");
-                }
-            }
+                } if (unumberT == 0) {
+                    message.reply('No email sent!') 
+                    collector.stop();
+                    log("User Cancelled!");
+                    log("Collecter Ended.");
+                } 
+            } 
         });
 	},
 }
