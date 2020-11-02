@@ -1,0 +1,8 @@
+{
+    "name": "Discordmailer",
+    "description": "A discord bot used to send email",
+    "repository": "https://github.com/Greenpilot4/discordmailer",
+    "logo": "https://cdn.discordapp.com/avatars/760337758153211934/ff7b63472afd9f0d9143976147bd42c6.png?size=4096",
+    "keywords": ["discord-mailer", "nodejs", "node", "email-sender", "smtp", "bot"]
+  }
+  

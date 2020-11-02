@@ -1,7 +1,10 @@
 # Discordmailer
 
 Install Node.js
-CentOS - `yum install nodejs12`
+
+```md
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+```
 
 ## Installing Dependencies 
  
@@ -27,5 +30,3 @@ To install needed packages run - `npm install`  within directory
 **logoutput** - File name of the logs
 
 After run `node .` to start the bot!
-
- 
