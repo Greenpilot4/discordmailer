@@ -35,7 +35,7 @@ To install needed packages run - `npm install`  within directory
 
 After run `node .` to start the bot!
 
-## Alternatively use Heroku
+## Heroku
 
 <a href="https://heroku.com/deploy?template=https://github.com/Greenpilot4/discordmailer/tree/heroku">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
