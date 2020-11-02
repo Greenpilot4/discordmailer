@@ -2,9 +2,7 @@
 
 Install Node.js
 
-```md
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-```
 
 ## Installing Dependencies 
  
