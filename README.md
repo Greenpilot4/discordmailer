@@ -1,8 +1,6 @@
 # Discordmailer
 
-Install Node.js
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Greenpilot4/discordmailer)
+![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Greenpilot4/discordmailer)
 
 ## Installing Dependencies 
  
