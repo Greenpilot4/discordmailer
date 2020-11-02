@@ -6,6 +6,8 @@ const Discord = require("discord.js");
 const nodemailer = require("nodemailer");
 const { host, port, username, password, logging, logoutput } = require("../config.json");
 
+mattachment = null
+
 function log(message) {
    console.log(message);
    if (logging == "true"){
