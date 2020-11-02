@@ -34,3 +34,9 @@ To install needed packages run - `npm install`  within directory
 **logoutput** - File name of the logs
 
 After run `node .` to start the bot!
+
+## Alternativly use Heroku
+
+<a href="https://heroku.com/deploy?template=https://github.com/Greenpilot4/discordmailer/tree/heroku">
+  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
+</a>
