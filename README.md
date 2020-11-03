@@ -1,7 +1,16 @@
 # Discordmailer
 
-Install Node.js
-CentOS - `yum install nodejs12`
+<p align="center">
+  <a href="https://nodejs.org/">
+    <img
+      alt="Node.js"
+      src="https://nodejs.org/static/images/logo-light.svg"
+      width="400"
+    />
+  </a>
+</p>
+
+# This Branch is Experimental!
 
 ## Installing Dependencies 
  
@@ -28,4 +37,4 @@ To install needed packages run - `npm install`  within directory
 
 After run `node .` to start the bot!
 
- 
+
