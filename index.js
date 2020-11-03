@@ -29,9 +29,12 @@ client.on("message", async (message) => {
 
 
   try {
-		if(commandName == "help") {
+		if(commandName == "passgen") {
 			command.execute(message, args); 
-		} else {
+    } else if (commandName == "ping") {
+        const m = await message.channel.send("Pinging...");
+    	  m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
+    } else {
 			command.execute(message);
 		}
 	} catch (error) {
