@@ -26,6 +26,7 @@ client.on("message", async (message) => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
     const command = client.commands.get(commandName);
+    const randPassword = Array(10).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
 
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return;
@@ -33,7 +34,7 @@ client.on("message", async (message) => {
 
     try {
         if (commandName == "passgen") {
-            command.execute(message, args);
+            message.channel.send(randPassword)
         } else if (commandName == "ping") {
             const m = await message.channel.send("Pinging...");
             m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
