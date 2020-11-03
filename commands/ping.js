@@ -6,7 +6,7 @@ module.exports = {
 			var ping = m.createdTimestamp - message.createdTimestamp;
 			var botPing = Math.round(bot.pi);
 			
-			m.edit(`**:ping_pong: Pong! Your Ping Is:-**\n  ${ping}ms`);
-		});
+			message.edit(`**:ping_pong: Pong! Your Ping Is:-**\n  ${ping}ms`);
+		}).catch(() => message.edit("🆘 An unknown error occurred. Do I have permission? (Embed Links)"));
 	},
 };
