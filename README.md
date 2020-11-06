@@ -13,7 +13,8 @@
 # This Branch is Experimental!
 
 ## Installing Dependencies 
- 
+Insure node.js v12+ is installed 
+
 To install needed packages run - `npm install`  within directory
 
 ## Edit Config.json and running bot
