@@ -5,7 +5,6 @@
     "port": "SMTP HOST PORT HERE",
     "username": "SMTP USER HERE",
     "password": "SMTP PASSWORD HERE",
-    "logging": "TRUE OR FALSE",
-    "logoutput": "LOG FILE NAME"
+    "logging": "TRUE OR FALSE"
     
 }
