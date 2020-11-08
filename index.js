@@ -25,7 +25,6 @@ client.on("message", async(message) => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
     const command = client.commands.get(commandName);
-    const randPassword = Array(10).fill("!@$%^&*0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
 
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return;
@@ -33,9 +32,7 @@ client.on("message", async(message) => {
 
     try {
         if (commandName == "passgen") {
-            message.channel.send(randPassword)
-            log(currentTime() + " " + message.author.tag + " generated a password")
-
+            command.execute(message, args)
         }
         else if (commandName == "ping") {
             const m = await message.channel.send("Pinging...");
@@ -43,7 +40,7 @@ client.on("message", async(message) => {
             log(currentTime() + " " + message.author.tag + " pinged the bot");
         }
         else {
-            command.execute(message);
+            command.execute(message)
         }
     }
     catch (error) {
