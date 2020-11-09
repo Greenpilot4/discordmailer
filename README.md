@@ -28,7 +28,7 @@ To invite your bot to your server go to the application settings, the "General I
 
 Once the Client ID is copied to clipboard, visit https://discordapi.com/permissions.html
 
-Select the permissions the bot needs (Administrator is find for this)
+Select the permissions the bot needs (Administrator is fine for this)
 
 Then where it says "Oauth Url Generator" paste the client ID. 
 
