@@ -1,58 +1,32 @@
-const fs = require("fs");
-const Discord = require("discord.js");
-const { prefix, token } = require("./config.json");
+const { Client, Collection } = require('discord.js');
+const fs = require('fs');
+const { token } = require("./config.json");
 
-const currentTime = require("./events/time.js");
-const log = require("./events/log.js");
+const client = new Client();
 
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
+client.commands = new Collection();
+client.log = require("./utils/log.js");
+client.currentTime  = require("./utils/time.js");
+client.sendmail = require("./utils/sendmail.js");
 
-const commandFiles = fs
-    .readdirSync("./commands")
-    .filter((file) => file.endsWith(".js"));
-
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
-}
-
-client.once("ready", () => {
-    log(currentTime() + " " + `${client.user.tag} online!`)
+fs.readdir('./events/', (err, files) => {
+    if (err) return console.error;
+    files.forEach(file => {
+        if (!file.endsWith('.js')) return;
+        const evt = require(`./events/${file}`);
+        let evtName = file.split('.')[0];
+        client.on(evtName, evt.bind(null, client));
+    });
 });
 
-client.on("message", async(message) => {
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const commandName = args.shift().toLowerCase();
-    const command = client.commands.get(commandName);
-
-    if (message.author.bot) return;
-    if (!message.content.startsWith(prefix)) return;
-
-
-    try {
-        if (commandName == "passgen") {
-            command.execute(message, args)
-        }
-        else if (commandName == "ping") {
-            const m = await message.channel.send("Pinging...");
-            m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
-            log(currentTime() + " " + message.author.tag + " pinged the bot");
-        }
-        else {
-            command.execute(message)
-        }
-    }
-    catch (error) {
-        console.error(error);
-        message.reply('Something Went Wrong!');
-    }
-});
-
-process.on("SIGINT", function() {
-    console.log("Goodbye!")
-    log("-----------------------------------------------------------------------------------------");
-    process.exit();
+fs.readdir('./commands/', async (err, files) => {
+    if (err) return console.error;
+    files.forEach(file => {
+        if (!file.endsWith('.js')) return;
+        let props = require(`./commands/${file}`);
+        let cmdName = file.split('.')[0];
+        client.commands.set(cmdName, props);
+    });
 });
 
 client.login(token);
